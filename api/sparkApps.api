@@ -1,0 +1,27 @@
+info(
+	title: "sparkApps"
+	desc: "sparkApps"
+	author: "hellen"
+	email: "hlxu71@163.com"
+)
+
+
+type AppCountReply {
+	Id int64 `json:"id"`
+	AppCounts int64 `json:"appCounts"`
+    CreateTime string `json:"creatTime"`
+}
+type AppCountInsert {
+	Count int64 `json:"count"`
+}
+
+service sparkApps-api {
+	//curl -i -X GET http://localhost:8888/sparkApps/getCount
+	@handler GetSparkAppCount
+	get /sparkApps/getCount returns(AppCountReply)
+
+	//curl -i -X POST http://localhost:8888/sparkApps/insertCount -H 'cache-control: no-cache' -H 'content-type: application/json' -d '{"count":23}'
+	@handler InsertSparkAppCount
+	post /sparkApps/insertCount (AppCountInsert)
+}
+//goctl model mysql datasource -url="root:123456@tcp(127.0.0.1:3306)/gozero" -table="sparkApps" -dir ./model
